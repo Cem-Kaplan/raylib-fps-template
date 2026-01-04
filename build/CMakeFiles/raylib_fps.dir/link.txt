@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/raylib_fps.dir/src/main.cpp.o CMakeFiles/raylib_fps.dir/src/Player.cpp.o -o raylib_fps  -lraylib -lGL -lm -lpthread -ldl -lX11 

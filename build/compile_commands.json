@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/cm/Dokumente/C++/raylib-fps-template/build",
+  "command": "/usr/bin/c++   -std=gnu++17 -o CMakeFiles/raylib_fps.dir/src/main.cpp.o -c /home/cm/Dokumente/C++/raylib-fps-template/src/main.cpp",
+  "file": "/home/cm/Dokumente/C++/raylib-fps-template/src/main.cpp",
+  "output": "CMakeFiles/raylib_fps.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/cm/Dokumente/C++/raylib-fps-template/build",
+  "command": "/usr/bin/c++   -std=gnu++17 -o CMakeFiles/raylib_fps.dir/src/Player.cpp.o -c /home/cm/Dokumente/C++/raylib-fps-template/src/Player.cpp",
+  "file": "/home/cm/Dokumente/C++/raylib-fps-template/src/Player.cpp",
+  "output": "CMakeFiles/raylib_fps.dir/src/Player.cpp.o"
+}
+]

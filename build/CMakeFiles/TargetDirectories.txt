@@ -1,0 +1,3 @@
+/home/cm/Dokumente/C++/raylib-fps-template/build/CMakeFiles/raylib_fps.dir
+/home/cm/Dokumente/C++/raylib-fps-template/build/CMakeFiles/edit_cache.dir
+/home/cm/Dokumente/C++/raylib-fps-template/build/CMakeFiles/rebuild_cache.dir
