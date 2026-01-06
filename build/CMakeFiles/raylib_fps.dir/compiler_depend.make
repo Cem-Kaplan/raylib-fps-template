@@ -29,6 +29,7 @@ CMakeFiles/raylib_fps.dir/src/main.cpp.o: /home/cm/Dokumente/C++/raylib-fps-temp
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/type_traits.h \
   /usr/include/c++/13/limits \
+  /usr/include/c++/13/math.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/tr1/bessel_function.tcc \
   /usr/include/c++/13/tr1/beta_function.tcc \
@@ -102,7 +103,8 @@ CMakeFiles/raylib_fps.dir/src/main.cpp.o: /home/cm/Dokumente/C++/raylib-fps-temp
   /usr/include/x86_64-linux-gnu/sys/types.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
-  /usr/local/include/raylib.h
+  /usr/local/include/raylib.h \
+  /usr/local/include/raymath.h
 
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h:
@@ -112,8 +114,6 @@ CMakeFiles/raylib_fps.dir/src/main.cpp.o: /home/cm/Dokumente/C++/raylib-fps-temp
 /usr/include/x86_64-linux-gnu/sys/select.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
-
-/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h:
 
@@ -167,6 +167,12 @@ CMakeFiles/raylib_fps.dir/src/main.cpp.o: /home/cm/Dokumente/C++/raylib-fps-temp
 
 /usr/include/c++/13/pstl/pstl_config.h:
 
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+
+/usr/include/c++/13/math.h:
+
+/home/cm/Dokumente/C++/raylib-fps-template/src/main.cpp:
+
 /usr/include/c++/13/limits:
 
 /usr/include/c++/13/tr1/bessel_function.tcc:
@@ -182,6 +188,8 @@ CMakeFiles/raylib_fps.dir/src/main.cpp.o: /home/cm/Dokumente/C++/raylib-fps-temp
 /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
 
 /usr/include/c++/13/bits/stl_pair.h:
+
+/usr/local/include/raymath.h:
 
 /usr/include/c++/13/bits/stl_iterator_base_types.h:
 
@@ -248,8 +256,6 @@ CMakeFiles/raylib_fps.dir/src/main.cpp.o: /home/cm/Dokumente/C++/raylib-fps-temp
 /usr/include/c++/13/bits/ptr_traits.h:
 
 /usr/include/c++/13/bits/exception_defines.h:
-
-/home/cm/Dokumente/C++/raylib-fps-template/src/main.cpp:
 
 /usr/include/c++/13/bits/functexcept.h:
 
