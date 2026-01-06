@@ -125,6 +125,7 @@ CMakeFiles/raylib_fps.dir/src/main.cpp.o: /home/cm/Dokumente/C++/raylib-fps-temp
   /usr/include/c++/13/bits/stl_pair.h \
   /usr/include/c++/13/bits/utility.h \
   /usr/include/c++/13/cmath \
+  /usr/include/c++/13/cstdio \
   /usr/include/c++/13/debug/assertions.h \
   /usr/include/c++/13/debug/debug.h \
   /usr/include/c++/13/ext/numeric_traits.h \
@@ -150,6 +151,7 @@ CMakeFiles/raylib_fps.dir/src/main.cpp.o: /home/cm/Dokumente/C++/raylib-fps-temp
   /usr/include/features.h \
   /usr/include/math.h \
   /usr/include/stdc-predef.h \
+  /usr/include/stdio.h \
   /usr/include/stdlib.h \
   /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
   /usr/include/x86_64-linux-gnu/bits/byteswap.h \
@@ -172,6 +174,7 @@ CMakeFiles/raylib_fps.dir/src/main.cpp.o: /home/cm/Dokumente/C++/raylib-fps-temp
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
@@ -179,12 +182,19 @@ CMakeFiles/raylib_fps.dir/src/main.cpp.o: /home/cm/Dokumente/C++/raylib-fps-temp
   /usr/include/x86_64-linux-gnu/bits/time64.h \
   /usr/include/x86_64-linux-gnu/bits/timesize.h \
   /usr/include/x86_64-linux-gnu/bits/types.h \
+  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
   /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
@@ -207,6 +217,20 @@ CMakeFiles/raylib_fps.dir/src/main.cpp.o: /home/cm/Dokumente/C++/raylib-fps-temp
   /usr/local/include/raylib.h \
   /usr/local/include/raymath.h
 
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
+
+/usr/include/c++/13/cstdio:
 
 /home/cm/Dokumente/C++/raylib-fps-template/src/main.cpp:
 
@@ -232,9 +256,13 @@ CMakeFiles/raylib_fps.dir/src/main.cpp.o: /home/cm/Dokumente/C++/raylib-fps-temp
 
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
 
+/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
+
 /usr/local/include/raylib.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
+
+/usr/include/stdio.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
 
@@ -357,6 +385,8 @@ CMakeFiles/raylib_fps.dir/src/main.cpp.o: /home/cm/Dokumente/C++/raylib-fps-temp
 /usr/include/c++/13/bits/functexcept.h:
 
 /usr/include/c++/13/debug/debug.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
 
