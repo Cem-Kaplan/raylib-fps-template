@@ -22,7 +22,14 @@ int main() {
     float yaw = 0.0f;
     float pitch = 0.0f;
     float sensitivity = 0.003f;
-    
+
+    Texture2D textur = LoadTexture("../assets/textures/Ground.png");
+
+    Mesh mesh = GenMeshCube(2,2,2);
+    Model model = LoadModelFromMesh(mesh);
+
+    model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = textur;
+float speed;
     while(!WindowShouldClose()) {
         ClearBackground(SKYBLUE);
 
@@ -41,12 +48,29 @@ int main() {
         };
 
         cam.target = Vector3Add(cam.position, forward);
+        // lernen
+        Vector3 right = Vector3Normalize(Vector3CrossProduct(forward, cam.up));
 
+
+        if (IsKeyDown(KEY_W)) cam.position = Vector3Add(cam.position, Vector3Scale(forward, speed));
+        if (IsKeyDown(KEY_S)) cam.position = Vector3Subtract(cam.position, Vector3Scale(forward, speed));
+        if (IsKeyDown(KEY_D)) cam.position = Vector3Add(cam.position, Vector3Scale(right, speed));
+        if (IsKeyDown(KEY_A)) cam.position = Vector3Subtract(cam.position, Vector3Scale(right, speed));
+
+        if (IsKeyDown(KEY_LEFT_SHIFT)) {
+            speed = 10.0f * GetFrameTime();
+        } else {
+            speed = 5.0f * GetFrameTime();
+        }
+
+        cam.target = Vector3Add(cam.position, forward);
+        //
         BeginDrawing();
         BeginMode3D(cam);
 
             DrawPlane({0,0,0}, {50,50}, GREEN);
             DrawCube({45, 0, 5}, 5, 5, 5, GRAY);
+            DrawModel(model, {-45,0,0}, 5, WHITE);
 
         EndMode3D();
         EndDrawing();
