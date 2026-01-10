@@ -104,7 +104,8 @@ CMakeFiles/raylib_fps.dir/src/main.cpp.o: /home/cm/Dokumente/C++/raylib-fps-temp
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/local/include/raylib.h \
-  /usr/local/include/raymath.h
+  /usr/local/include/raymath.h \
+  /usr/local/include/rlgl.h
 
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h:
@@ -288,6 +289,8 @@ CMakeFiles/raylib_fps.dir/src/main.cpp.o: /home/cm/Dokumente/C++/raylib-fps-temp
 /usr/include/features.h:
 
 /usr/include/stdlib.h:
+
+/usr/local/include/rlgl.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
 

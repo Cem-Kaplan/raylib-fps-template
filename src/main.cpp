@@ -1,65 +1,64 @@
 #include "raylib.h"
 #include "raymath.h"
+#include "rlgl.h"
+#include <cmath>
 
 int main()
 {
-    const int screenWidth = 800;
-    const int screenHeight = 600;
+    const int screenWidth = 1280;
+    const int screenHeight = 720;
 
     SetConfigFlags(FLAG_MSAA_4X_HINT);
+    InitWindow(screenWidth, screenHeight, "raylib FPS - Fixed Controls");
 
-    InitWindow(screenWidth, screenHeight, "Simple FPS - Ground Movement");
-
-    DisableCursor(); // 🔒 Cursor entfernen (FPS-Style)
+    DisableCursor();
 
     Camera3D camera = { 0 };
-    camera.position = { 0.0f, 1.8f, 0.0f };   // Spielerhöhe
+    camera.position = { 0.0f, 1.8f, 0.0f };
     camera.target = { 0.0f, 1.8f, 1.0f };
     camera.up = { 0.0f, 1.0f, 0.0f };
     camera.fovy = 60.0f;
     camera.projection = CAMERA_PERSPECTIVE;
 
     Vector3 playerPosition = camera.position;
-
     float yaw = 0.0f;
     float pitch = 0.0f;
-
     const float playerHeight = 1.8f;
+
+    Mesh weaponMesh = GenMeshCube(0.2f, 0.2f, 1.0f);
+    Model weaponModel = LoadModelFromMesh(weaponMesh);
+
+    Camera3D weaponCamera = { 0 };
+    weaponCamera.position = { 0, 0, 0 };
+    weaponCamera.target = { 0, 0, 1 };
+    weaponCamera.up = { 0, 1, 0 };
+    weaponCamera.fovy = 45.0f;
+    weaponCamera.projection = CAMERA_PERSPECTIVE;
+
     SetTargetFPS(60);
 
     while (!WindowShouldClose())
     {
-        // 🖱️ Maussteuerung
-        Vector2 mouseDelta = GetMouseDelta();
-        yaw -= mouseDelta.x * 0.003f;
-        pitch -= mouseDelta.y * 0.003f;
-        pitch = Clamp(pitch, -1.2f, 1.2f); // kein Überkopf-Blick
 
-        // Blickrichtung (Y bleibt 0 für Bewegung)
-        Vector3 forward = {
-            sinf(yaw),
-            0.0f,
-            cosf(yaw)
-        };
+        Vector2 mouse = GetMouseDelta();
+        yaw -= mouse.x * 0.003f;
+        pitch -= mouse.y * 0.003f;
+        pitch = Clamp(pitch, -1.2f, 1.2f);
 
-        Vector3 right = {
-            cosf(yaw),
-            0.0f,
-            -sinf(yaw)
-        };
+        Vector3 forward = { sinf(yaw), 0.0f, cosf(yaw) };
+        Vector3 right   = { -cosf(yaw), 0.0f, sinf(yaw) };
 
         float speed = 5.0f * GetFrameTime();
 
-        // 🚶 Bewegung nur auf XZ-Ebene
-        if (IsKeyDown(KEY_W)) playerPosition = Vector3Add(playerPosition, Vector3Scale(forward, speed));
-        if (IsKeyDown(KEY_S)) playerPosition = Vector3Subtract(playerPosition, Vector3Scale(forward, speed));
-        if (IsKeyDown(KEY_D)) playerPosition = Vector3Subtract(playerPosition, Vector3Scale(right, speed));
-        if (IsKeyDown(KEY_A)) playerPosition = Vector3Add(playerPosition, Vector3Scale(right, speed));
+        bool isMoving = false;
 
-        // Spieler bleibt auf Bodenhöhe
+        if (IsKeyDown(KEY_W)) { playerPosition = Vector3Add(playerPosition, Vector3Scale(forward, speed)); isMoving = true; }
+        if (IsKeyDown(KEY_S)) { playerPosition = Vector3Subtract(playerPosition, Vector3Scale(forward, speed)); isMoving = true; }
+        if (IsKeyDown(KEY_A)) { playerPosition = Vector3Subtract(playerPosition, Vector3Scale(right, speed));   isMoving = true; }
+        if (IsKeyDown(KEY_D)) { playerPosition = Vector3Add(playerPosition, Vector3Scale(right, speed));        isMoving = true; }
+
         playerPosition.y = playerHeight;
 
-        // Kamera aktualisieren
         camera.position = playerPosition;
         camera.target = {
             playerPosition.x + cosf(pitch) * sinf(yaw),
@@ -71,20 +70,43 @@ int main()
         ClearBackground(SKYBLUE);
 
         BeginMode3D(camera);
-            // 🟩 Boden (Plane)
-            DrawPlane({ 0, 0, 0 }, { 50, 50 }, DARKGREEN);
-
-            // 🧱 Objekte
-            DrawCube({ 5, 1, 5 }, 2, 2, 2, RED);
-            DrawCube({ -4, 1, -3 }, 2, 2, 2, BLUE);
+            DrawPlane({ 0,0,0 }, { 50,50 }, DARKGREEN);
+            DrawCube({ 5,1,5 }, 2,2,2, RED);
+            DrawCube({ -4,1,-3 }, 2,2,2, BLUE);
         EndMode3D();
 
+        BeginMode3D(weaponCamera);
+        rlDisableDepthTest();
+
+            float bob = 0.0f;
+            float swayX = 0.0f;
+            float swayY = 0.0f;
+
+            if (isMoving)
+            {
+                bob = sinf(GetTime() * 10.0f) * 0.03f;
+                swayX = mouse.x * 0.0005f;
+                swayY = mouse.y * 0.0005f;
+            }
+
+            Vector3 weaponPos = {
+                0.35f + swayX,
+               -0.35f + bob - swayY,
+                1.0f
+            };
+
+            DrawModel(weaponModel, weaponPos, 1.0f, GRAY);
+        rlEnableDepthTest();
+
+        EndMode3D();
+
+        DrawText("+", screenWidth / 2 - 5, screenHeight / 2 - 10, 20, BLACK);
         DrawFPS(10, 10);
-        DrawText("WASD bewegen | Maus schauen | ESC = Exit", 10, 30, 18, BLACK);
 
         EndDrawing();
     }
 
+    UnloadModel(weaponModel);
     CloseWindow();
     return 0;
 }
