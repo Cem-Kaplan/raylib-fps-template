@@ -1,78 +1,90 @@
 #include "raylib.h"
-#include "cmath"
 #include "raymath.h"
 
-int main() {
-    const int WIN_WIDTH = 800;
-    const int WIN_HEIGHT = 600;
-    const char *WIN_TITLE = "Spiel";
-    int FOV = 60;
+int main()
+{
+    const int screenWidth = 800;
+    const int screenHeight = 600;
 
-    InitWindow(WIN_WIDTH, WIN_HEIGHT, WIN_TITLE);
-    SetTargetFPS(60);
-    DisableCursor();
+    SetConfigFlags(FLAG_MSAA_4X_HINT);
 
-    Camera3D cam = {0};
-    cam.position = {7,7,7};
-    cam.up = {0,1,0};
-    cam.target = {0,1,0};
-    cam.fovy = FOV;
-    cam.projection = CAMERA_PERSPECTIVE;
+    InitWindow(screenWidth, screenHeight, "Simple FPS - Ground Movement");
+
+    DisableCursor(); // 🔒 Cursor entfernen (FPS-Style)
+
+    Camera3D camera = { 0 };
+    camera.position = { 0.0f, 1.8f, 0.0f };   // Spielerhöhe
+    camera.target = { 0.0f, 1.8f, 1.0f };
+    camera.up = { 0.0f, 1.0f, 0.0f };
+    camera.fovy = 60.0f;
+    camera.projection = CAMERA_PERSPECTIVE;
+
+    Vector3 playerPosition = camera.position;
 
     float yaw = 0.0f;
     float pitch = 0.0f;
-    float sensitivity = 0.003f;
 
-    Texture2D textur = LoadTexture("../assets/textures/Ground.png");
+    const float playerHeight = 1.8f;
+    SetTargetFPS(60);
 
-    Mesh mesh = GenMeshCube(2,2,2);
-    Model model = LoadModelFromMesh(mesh);
+    while (!WindowShouldClose())
+    {
+        // 🖱️ Maussteuerung
+        Vector2 mouseDelta = GetMouseDelta();
+        yaw -= mouseDelta.x * 0.003f;
+        pitch -= mouseDelta.y * 0.003f;
+        pitch = Clamp(pitch, -1.2f, 1.2f); // kein Überkopf-Blick
 
-    model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = textur;
-float speed;
-    while(!WindowShouldClose()) {
-        ClearBackground(SKYBLUE);
-
-        Vector2 mouse = GetMouseDelta();
-
-        yaw -= mouse.x * sensitivity;
-        pitch -= mouse.y * sensitivity;
-
-        if(pitch > 1.5f) pitch = 1.5f;
-        if(pitch < -1.5f) pitch = -1.5f;
-
+        // Blickrichtung (Y bleibt 0 für Bewegung)
         Vector3 forward = {
-            cosf(pitch) * sinf(yaw),
-            sinf(pitch),
-            cosf(pitch) * cosf(yaw)
+            sinf(yaw),
+            0.0f,
+            cosf(yaw)
         };
 
-        cam.target = Vector3Add(cam.position, forward);
-        // lernen
-        Vector3 right = Vector3Normalize(Vector3CrossProduct(forward, cam.up));
+        Vector3 right = {
+            cosf(yaw),
+            0.0f,
+            -sinf(yaw)
+        };
 
+        float speed = 5.0f * GetFrameTime();
 
-        if (IsKeyDown(KEY_W)) cam.position = Vector3Add(cam.position, Vector3Scale(forward, speed));
-        if (IsKeyDown(KEY_S)) cam.position = Vector3Subtract(cam.position, Vector3Scale(forward, speed));
-        if (IsKeyDown(KEY_D)) cam.position = Vector3Add(cam.position, Vector3Scale(right, speed));
-        if (IsKeyDown(KEY_A)) cam.position = Vector3Subtract(cam.position, Vector3Scale(right, speed));
+        // 🚶 Bewegung nur auf XZ-Ebene
+        if (IsKeyDown(KEY_W)) playerPosition = Vector3Add(playerPosition, Vector3Scale(forward, speed));
+        if (IsKeyDown(KEY_S)) playerPosition = Vector3Subtract(playerPosition, Vector3Scale(forward, speed));
+        if (IsKeyDown(KEY_D)) playerPosition = Vector3Subtract(playerPosition, Vector3Scale(right, speed));
+        if (IsKeyDown(KEY_A)) playerPosition = Vector3Add(playerPosition, Vector3Scale(right, speed));
 
-        if (IsKeyDown(KEY_LEFT_SHIFT)) {
-            speed = 10.0f * GetFrameTime();
-        } else {
-            speed = 5.0f * GetFrameTime();
-        }
+        // Spieler bleibt auf Bodenhöhe
+        playerPosition.y = playerHeight;
 
-        cam.target = Vector3Add(cam.position, forward);
-        //
+        // Kamera aktualisieren
+        camera.position = playerPosition;
+        camera.target = {
+            playerPosition.x + cosf(pitch) * sinf(yaw),
+            playerPosition.y + sinf(pitch),
+            playerPosition.z + cosf(pitch) * cosf(yaw)
+        };
+
         BeginDrawing();
-        BeginMode3D(cam);
+        ClearBackground(SKYBLUE);
 
-            DrawPlane({0,0,0}, {50,50}, GREEN);
-            DrawCube({45, 0, 5}, 5, 5, 5, GRAY);
-            DrawModel(model, {-45,0,0}, 5, WHITE);
+        BeginMode3D(camera);
+            // 🟩 Boden (Plane)
+            DrawPlane({ 0, 0, 0 }, { 50, 50 }, DARKGREEN);
 
+            // 🧱 Objekte
+            DrawCube({ 5, 1, 5 }, 2, 2, 2, RED);
+            DrawCube({ -4, 1, -3 }, 2, 2, 2, BLUE);
         EndMode3D();
+
+        DrawFPS(10, 10);
+        DrawText("WASD bewegen | Maus schauen | ESC = Exit", 10, 30, 18, BLACK);
+
         EndDrawing();
     }
+
+    CloseWindow();
+    return 0;
 }
